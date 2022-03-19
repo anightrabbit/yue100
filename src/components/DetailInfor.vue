@@ -1,0 +1,115 @@
+<template>
+  <div class="detail-infor">
+    <van-cell center :title="title" value="" :label="subTitle" />
+    <!-- 收藏/取消收藏 -->
+    <div class="detail-like" @click="refreshLike">
+      <van-image
+        width="14"
+        height="14"
+        :src="require(`../assets/${getLikeImg}.svg`)"
+        style="margin-right: 5px"
+      />
+      <span class="detail-like-text">{{love ? '已' : ''}}收藏</span>
+    </div>
+    <!-- 相册 -->
+    <DetailGallery :imgs="imgs" />
+    <!-- 地址/电话 -->
+    <div class="detail-infor-text">
+      <div class="van-ellipsis">详细地址：上海市盈港东路8000号</div>
+      <div class="van-ellipsis">
+        联系电话：<a href="tel:021-6612785">021-6612785</a>
+      </div>
+    </div>
+
+    <!-- 打卡人气/收藏人气/自定义 -->
+    <van-grid class="van-hairline--top" :border="false" :column-num="3">
+      <van-grid-item>
+        <p class="detail-infor-rank">No.4</p>
+        <p class="detail-infor-flag">打卡人气</p>
+      </van-grid-item>
+      <van-grid-item>
+        <p class="detail-infor-rank">1200</p>
+        <p class="detail-infor-flag">收藏人气</p>
+      </van-grid-item>
+      <van-grid-item>
+        <p class="detail-infor-rank">102</p>
+        <p class="detail-infor-flag">自定义</p>
+      </van-grid-item>
+    </van-grid>
+  </div>
+</template>
+
+<script>
+import DetailGallery from "./DetailGallery";
+
+export default {
+  name: "DetailInfor",
+  props: {
+    title: String,
+    subTitle: String,
+    imgs: Array,
+    like: Boolean,
+  },
+  computed: {
+    getLikeImg() {
+      return this.love ? 'like' : 'unlike';
+    }
+  },
+  data() {
+    return {
+      love: false,
+    }
+  },
+  components: {
+    DetailGallery,
+  },
+  methods: {
+    refreshLike() {
+      this.love = !this.love;
+    }
+  },
+};
+</script>
+
+<style>
+.detail-infor {
+  margin-top: -30px;
+  position: relative;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #fff;
+  padding: 10px 4px;
+  margin-bottom: 10px;
+}
+.detail-like {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+}
+.detail-like-text {
+  color: rgba(51, 51, 51, 1);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.detail-infor-text {
+  padding: 10px 16px;
+  overflow: hidden;
+  color: rgba(102, 102, 102, 1);
+  font-size: 12px;
+  line-height: 18px;
+}
+.detail-infor-rank {
+  color: rgba(129, 106, 253, 1);
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 0;
+}
+.detail-infor-flag {
+  color: rgba(102, 102, 102, 1);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+</style>
