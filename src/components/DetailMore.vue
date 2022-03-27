@@ -35,4 +35,7 @@ export default {
     margin: 0;
     padding: 0;
 }
+.detail-more img {
+  max-width: 100%;
+}
 </style>

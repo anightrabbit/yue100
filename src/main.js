@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueResource from 'vue-resource'
 import { Button,Skeleton,Image as VanImage,Cell,Grid, GridItem,Swipe, SwipeItem,Popup,Toast } from 'vant';
 import App from './App.vue'
 
@@ -12,6 +13,7 @@ Vue.use(Swipe)
 Vue.use(SwipeItem)
 Vue.use(Popup)
 Vue.use(Toast)
+Vue.use(VueResource)
 
 Vue.config.productionTip = false
 
