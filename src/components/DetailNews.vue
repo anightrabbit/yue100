@@ -1,7 +1,7 @@
 <template>
   <div class="detail-news">
     <h2 class="detail-title">最新动态</h2>
-    <ul class="detail-news-list" id="detail-news-list">
+    <ul :class="[showAll ? 'detail-news-list' : 'detail-news-list news-hide']" id="detail-news-list">
       <li
         v-for="item in news"
         :key="item.id"
@@ -11,7 +11,7 @@
       </li>
     </ul>
     <div @click="toggleNews" class="detail-news-option" v-if="news.length > 2">
-      <span v-if="showall">展开全部{{ news.length }}条动态</span>
+      <span v-if="!showAll">展开全部{{ news.length }}条动态</span>
       <span v-else>收起</span>
     </div>
   </div>
@@ -30,7 +30,9 @@ export default {
   },
   methods: {
     toggleNews() {
-
+      this.showAll = !this.showAll
+      const dom = document.getElementById('detail-news-list')
+      !this.showAll ? dom.classList.add('news-hide') : dom.classList.remove('news-hide')
     },
   },
 };
