@@ -1,6 +1,8 @@
 <template>
   <div class="detail-infor">
-    <van-cell :title="title" value="" :label="subTitle" />
+    <!-- <van-cell :title="title" value="" :label="subTitle" /> -->
+    <h1 class="detail-infor-title van-ellipsis">{{ title }}</h1>
+    <p class="detail-infor-desc van-multi-ellipsis--l3">{{ description }}</p>
     <!-- 收藏/取消收藏 -->
     <div class="detail-like" @click="refreshLike">
       <van-image
@@ -47,7 +49,7 @@ export default {
   name: "DetailInfor",
   props: {
     title: String,
-    subTitle: String,
+    description: String,
     imgs: Array,
     id: [String, Number],
     address: String,
@@ -102,6 +104,19 @@ export default {
   background: #fff;
   padding: 10px 4px;
   margin-bottom: 10px;
+}
+.detail-infor-title {
+  color: rgba(49, 71, 128, 1);
+  font-size: 18px;
+  line-height: 2;
+  margin: 0;
+  padding: 0px 16px;
+}
+.detail-infor-desc {
+  color: rgba(49, 71, 128, 1);
+  font-size: 12px;
+  line-height: 2;
+  padding: 0px 16px;
 }
 .detail-like {
   position: absolute;

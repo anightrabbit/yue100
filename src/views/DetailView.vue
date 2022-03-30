@@ -5,7 +5,7 @@
         <DetailHeader :src="pageData.thumb" />
         <DetailInfor
           :title="pageData.title"
-          subTitle="营业时间"
+          :description="pageData.description"
           :imgs="pageData.images"
           :address="pageData.address"
           :dakarenqi="pageData.dakarenqi"
