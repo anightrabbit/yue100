@@ -6,7 +6,7 @@
           width="140"
           height="100"
           class="detail-gallery-item"
-          :src="img"
+          :src="img.url"
           @click="showGallery(index)"
         />
       </van-swipe-item>
@@ -25,7 +25,7 @@ export default {
   methods: {
     showGallery(num) {
       ImagePreview({
-        images: this.imgs,
+        images: this.imgs.map(item => item.url),
         startPosition: num,
       });
     },
