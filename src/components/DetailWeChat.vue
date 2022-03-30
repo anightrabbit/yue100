@@ -2,7 +2,7 @@
   <div class="detail-wechat">
     <van-cell center label="微信公众号">
       <template #title>
-        <span class="detail-wechat-title">虹口区图书馆乍浦分馆</span>
+        <span class="detail-wechat-title">{{title}}</span>
       </template>
       <template #icon>
         <van-image
@@ -18,7 +18,7 @@
     </van-cell>
     <van-popup v-model="show" style="background: transparent; width: 64%">
       <div class="detail-wechat-popup">
-        <h3 class="van-ellipsis">虹口区图书馆乍浦分馆</h3>
+        <h3 class="van-ellipsis">{{title}}</h3>
         <p>保存图片后用微信扫码关注</p>
         <van-image width="144" height="144" :src="url" />
       </div>
@@ -39,6 +39,7 @@ export default {
   name: "DetailWeChat",
   props: {
     url: String,
+    title: String,
   },
   data() {
     return {
