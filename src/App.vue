@@ -27,6 +27,5 @@ body {
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
-  padding-bottom: 100px;
 }
 </style>

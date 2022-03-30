@@ -26,14 +26,14 @@ export default {
   margin: 0 0 10px 0;
   padding: 0;
 }
-.detail-more-infor {
-  color: rgba(102, 102, 102, 1);
-  font-size: 14px;
-  line-height: 2;
-}
+
 .detail-more-infor p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  color: rgba(102, 102, 102, 1);
+  font-size: 12px!important;
+  line-height: 28px;
+  margin-bottom: 10px;
 }
 .detail-more img {
   max-width: 100%;
