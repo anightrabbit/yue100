@@ -35,7 +35,7 @@
       </van-grid-item>
       <van-grid-item>
         <p class="detail-infor-rank">{{ zdyrq }}</p>
-        <p class="detail-infor-flag">自定义</p>
+        <p class="detail-infor-flag">浏览量</p>
       </van-grid-item>
     </van-grid>
   </div>
