@@ -1,5 +1,4 @@
 import Vue from "vue";
-import qs from "query-string"
 
 export const getLike = () => {
     const uid = window.localStorage.getItem('YUE100_UID');
@@ -14,11 +13,10 @@ export const getLike = () => {
         api_auth_uid: uid,
         api_auth_code: code,
     }
-    const url = qs.stringifyUrl({
-        url: process.env.BASE_URL + process.env.VUE_APP_API_PATH,
-        query,
-    })
-    return Vue.http.get(url).then(json => {
+    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+    return Vue.http.get(url, {
+        params: query
+    }).then(json => {
         return json.body;
     }, err => {
         console.log(err)
@@ -39,19 +37,19 @@ export const updateLike = (id) => {
         api_auth_uid: uid,
         api_auth_code: code,
     }
-    const url = qs.stringifyUrl({
-        url: process.env.BASE_URL + process.env.VUE_APP_API_PATH,
-        query,
-    })
+    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+
+    const body = {
+        "data[yuedudian][]": id
+    }
     const options = {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        data:{
-            id
-        }
+        emulateJSON: true,
+        params: query,
     }
-    return Vue.http.post(url, options).then(json => {
+    return Vue.http.post(url,body, options).then(json => {
         return json.body;
     }, err => {
         console.log(err)

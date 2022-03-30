@@ -1,5 +1,4 @@
 import Vue from "vue";
-import qs from "query-string"
 
 const getDetail = (id = 50) => {
     const query = {
@@ -10,11 +9,10 @@ const getDetail = (id = 50) => {
         appid: process.env.VUE_APP_ID,
         appsecret: process.env.VUE_APP_SECRET
     }
-    const url = qs.stringifyUrl({
-        url: process.env.BASE_URL + process.env.VUE_APP_API_PATH,
-        query,
-    })
-    return Vue.http.get(url).then(json => {
+    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH;
+    return Vue.http.get(url, {
+        params: query
+    }).then(json => {
         return json.body;
     }, err => {
         console.log(err)
