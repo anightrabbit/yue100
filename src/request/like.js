@@ -46,6 +46,7 @@ export const updateLike = (id) => {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
+        method: "POST",
         emulateJSON: true,
         params: query,
     }

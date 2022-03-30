@@ -3,7 +3,7 @@
     <van-skeleton title :row="3" :loading="loading">
       <template v-if="pageData">
         <div class="post-page-header">
-          <van-image :src="pageData.touxiang" width="40" height="40" round />
+          <van-image :src="pageData.touxiang" width="40" height="40" round fit="cover" />
           <div class="post-page-header-content">
             <h3>{{ pageData.author }}</h3>
             <p>{{ pageData.inputtime }}</p>
