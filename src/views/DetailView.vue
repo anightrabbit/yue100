@@ -12,6 +12,7 @@
           :scrq="pageData.scrq"
           :zdyrq="pageData.zdyrq"
           :id="pageData.id"
+          :lxfs="pageData.lxfs"
         />
         <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" />
         <DetailNews :news="news" v-if="news.length" />

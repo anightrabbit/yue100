@@ -18,8 +18,8 @@
     <!-- 地址/电话 -->
     <div class="detail-infor-text">
       <div class="van-ellipsis">详细地址：{{ address }}</div>
-      <div class="van-ellipsis">
-        联系方式：<a href="tel:021-6612785">021-6612785</a>
+      <div class="van-ellipsis" v-if="lxfs">
+        联系方式：<a :href="phone">{{ lxfs }}</a>
       </div>
     </div>
 
@@ -56,10 +56,14 @@ export default {
     dakarenqi: [String, Number],
     zdyrq: [String, Number],
     scrq: [String, Number],
+    lxfs: String,
   },
   computed: {
     getLikeImg() {
       return this.love ? "like" : "unlike";
+    },
+    phone() {
+      return "tel:" + this.lxfs;
     },
   },
   data() {
