@@ -15,12 +15,14 @@
         <DetailWeChat />
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
-        <DetailFooter />
+        <DetailPost :post="post" />
+        <DetailFooter needShare needDaka />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
           round
-          type="info"
+          type="primary"
+          color="rgba(129, 106, 253, 1)"
           class="refresh-button"
           @click="getPageData"
           >刷新</van-button
@@ -37,9 +39,10 @@ import DetailNews from "@/components/DetailNews";
 import DetailMore from "@/components/DetailMore";
 import DetailWeChat from "@/components/DetailWeChat";
 import DetailFooter from "@/components/DetailFooter";
-
+import DetailPost from "@/components/DetailPost";
 import getDetail from "@/request/detail";
 import { getNews } from "@/request/news";
+import { getPost } from "@/request/post";
 
 export default {
   name: "DetailView",
@@ -50,10 +53,12 @@ export default {
     DetailMore,
     DetailWeChat,
     DetailFooter,
+    DetailPost,
   },
   data() {
     return {
       news: [],
+      post: [],
       loading: true,
       pageData: null,
     };
@@ -74,6 +79,7 @@ export default {
         this.$toast.fail(json.msg || "网络异常");
       }
       await this.getNewsData(params?.id);
+      await this.getPostData();
     },
     async getNewsData(relid) {
       if (!relid) return false;
@@ -82,13 +88,19 @@ export default {
         this.news = json.data;
       }
     },
+    async getPostData() {
+      const json = await getPost();
+      if (json.code === 1) {
+        this.post = json.data;
+      }
+    }
   },
 };
 </script>
 
 <style>
 .detail-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   padding-bottom: 100px;
 }
 .refresh-button {

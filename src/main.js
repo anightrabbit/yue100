@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import { Button,Skeleton,Image as VanImage,Cell,Grid, GridItem,Swipe, SwipeItem,Popup,Toast,Empty } from 'vant'
+import { Button,Skeleton,Image as VanImage,Cell,Grid, GridItem,Swipe, SwipeItem,Popup,Toast,Empty,Col, Row } from 'vant'
 import App from './App.vue'
 import router from './router'
 
@@ -19,6 +19,8 @@ Vue.use(Popup)
 Vue.use(Toast)
 Vue.use(VueResource)
 Vue.use(Empty)
+Vue.use(Col)
+Vue.use(Row)
 
 Vue.config.productionTip = false
 

@@ -18,6 +18,7 @@ export default {
 .detail-more {
   padding: 10px 20px;
   background: #fff;
+  margin-bottom: 10px;
 }
 .detail-title {
   color: rgba(49, 71, 128, 1);

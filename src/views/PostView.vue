@@ -1,13 +1,16 @@
 <template>
-  <div id="page" class="news-page">
+  <div id="page" class="post-page">
     <van-skeleton title :row="3" :loading="loading">
       <template v-if="pageData">
-        <div class="news-page-header">
-          <p>发布来源：{{ pageData.title }}</p>
-          <p>发布时间：{{ pageData.inputtime }}</p>
-          <h1>{{ pageData.title }}</h1>
+        <div class="post-page-header">
+          <van-image :src="pageData.thumb" width="40" height="40" round />
+          <div class="post-page-header-content">
+            <h3>{{ pageData.author }}</h3>
+            <p>{{ pageData.inputtime }}</p>
+          </div>
         </div>
-        <div v-html="pageData.content" class="news-page-content"></div>
+        <h1 class="post-page-title">{{ pageData.title }}</h1>
+        <div v-html="pageData.content" class="post-page-content"></div>
         <DetailFooter needShare />
       </template>
       <van-empty v-else image="error" description="网络异常">
@@ -27,10 +30,10 @@
 <script>
 import DetailFooter from "@/components/DetailFooter";
 
-import { getNewsDetail } from "@/request/news";
+import { getPostDetail } from "@/request/post";
 
 export default {
-  name: "NewsView",
+  name: "PostView",
   components: {
     DetailFooter,
   },
@@ -48,7 +51,7 @@ export default {
     async getPageData() {
       const params = this.$route.params;
       // this.$toast.loading("加载中...");
-      const json = await getNewsDetail(params?.id);
+      const json = await getPostDetail(params?.id);
       this.loading = false;
       if (json.code === 1) {
         this.pageData = json.data;
@@ -61,34 +64,46 @@ export default {
 </script>
 
 <style>
-.news-page {
-  padding: 20px;
+.post-page {
   background: #fff;
   min-height: calc(100vh - 100px);
   padding-bottom: 100px;
   box-sizing: border-box;
 }
-.news-page-header p {
-  color: rgba(102, 102, 102, 1);
-  font-size: 14px;
-  line-height: 20px;
-  margin: 0;
+.post-page-header {
+  display: flex;
+  padding: 10px 20px;
+  box-sizing: border-box;
 }
-.news-page-header h1 {
-  line-height: 28px;
+.post-page-title {
   color: rgba(0, 0, 0, 1);
   font-size: 18px;
-  margin: 10px 0;
+  line-height: 2;
+  margin: 20px 20px 0 20px;
 }
-.news-page-content p {
-  color: rgba(51, 51, 51, 1);
+.post-page-header-content {
+  display: flex;
+  flex: 1;
+  height: 40px;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+}
+.post-page-header-content h3 {
+  margin: 0;
+  color: rgba(0, 0, 0, 1);
   font-size: 14px;
-  line-height: 20px;
-  text-indent: 2em;
-  margin-bottom: 10px;
+  line-height: 1.5;
 }
-.news-page-content img {
+.post-page-header-content p {
+  color: rgba(102, 102, 102, 1);
+  font-size: 10px;
+  line-height: 1.5;
+}
+.post-page-content {
+  padding: 20px;
+}
+.post-page-content img {
   max-width: 100%;
-  margin: 0 auto;
 }
 </style>

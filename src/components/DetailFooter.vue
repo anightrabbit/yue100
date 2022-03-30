@@ -1,10 +1,10 @@
 <template>
   <div class="detail-footer">
-    <van-grid :border="false" :column-num="2">
-      <van-grid-item>
+    <van-grid :border="false" :column-num="getColumnNum">
+      <van-grid-item v-if="needShare">
         <van-button
           round
-          plain
+          :plain="getShareButtunStyle"
           type="primary"
           color="rgba(129, 106, 253, 1)"
           block
@@ -12,7 +12,7 @@
           >分享</van-button
         >
       </van-grid-item>
-      <van-grid-item>
+      <van-grid-item v-if="needDaka">
         <van-button
           round
           type="primary"
@@ -34,6 +34,21 @@ export default {
   name: "DetailFooter",
   components: {
     PopupShare,
+  },
+  props: {
+    needShare: Boolean,
+    needDaka: Boolean,
+  },
+  computed: {
+    getColumnNum() {
+      return this.needShare + this.needDaka;
+    },
+    getShareButtunStyle() {
+      if(this.needShare && !this.needDaka) {
+        return false;
+      }
+      return true
+    }
   },
   data() {
     return {
@@ -65,5 +80,7 @@ export default {
   bottom: 0;
   z-index: 99;
   border-top: 1px solid #efefef;
+  background: #fff;
+  overflow: hidden;
 }
 </style>

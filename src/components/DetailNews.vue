@@ -5,6 +5,7 @@
       <li
         v-for="item in news"
         :key="item.id"
+        @click="gotoDetail(item.id)"
       >
         <a href="" class="van-ellipsis">{{ item.title }}</a
         ><span>{{ item.date }}</span>
@@ -34,6 +35,11 @@ export default {
       const dom = document.getElementById('detail-news-list')
       !this.showAll ? dom.classList.add('news-hide') : dom.classList.remove('news-hide')
     },
+    gotoDetail(id) {
+      return this.$router.push({
+        path: `/news/${id}`,
+      });
+    }
   },
 };
 </script>

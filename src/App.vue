@@ -5,9 +5,24 @@
 </template>
 
 <script>
+import { getUrlQuery } from "@/utils"
+
 export default {
   name: "App",
-};
+  created() {
+    const query = getUrlQuery();
+    // 接入参数 api_auth_uid，api_auth_code
+    // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
+    // 可能的场景2 阅读记详情 http://47.97.210.216/client/post/10?api_auth_uid=1&api_auth_code=2
+    // 可能的场景3 阅读点动态详情 http://47.97.210.216/client/news/10?api_auth_uid=1&api_auth_code=2
+    if(query?.app_auth_uid) {
+      window.localStorage.setItem('YUE100_UID',query?.app_auth_uid)
+    }
+    if(query?.app_auth_code) {
+      window.localStorage.setItem('YUE100_CODE', query?.app_auth_code)
+    }
+  },
+}
 </script>
 
 <style>
@@ -21,11 +36,16 @@ body {
   font-size: 16px;
   background-color: #f7f8fa;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 #app {
   box-sizing: border-box;
   min-height: 100vh;
   width: 100%;
   overflow: hidden;
+}
+p {
+  margin: 0;
+  padding: 0;
 }
 </style>
