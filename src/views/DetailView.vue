@@ -11,6 +11,7 @@
           :dakarenqi="pageData.dakarenqi"
           :scrq="pageData.scrq"
           :zdyrq="pageData.zdyrq"
+          :id="pageData.id"
         />
         <DetailWeChat />
         <DetailNews :news="news" v-if="news.length" />
@@ -93,7 +94,7 @@ export default {
       if (json.code === 1) {
         this.post = json.data;
       }
-    }
+    },
   },
 };
 </script>

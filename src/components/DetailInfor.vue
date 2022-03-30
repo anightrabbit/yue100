@@ -24,15 +24,15 @@
     <!-- 打卡人气/收藏人气/自定义 -->
     <van-grid class="van-hairline--top" :border="false" :column-num="3">
       <van-grid-item>
-        <p class="detail-infor-rank">No.{{dakarenqi}}</p>
+        <p class="detail-infor-rank">No.{{ dakarenqi }}</p>
         <p class="detail-infor-flag">打卡人气</p>
       </van-grid-item>
       <van-grid-item>
-        <p class="detail-infor-rank">{{scrq}}</p>
+        <p class="detail-infor-rank">{{ scrq }}</p>
         <p class="detail-infor-flag">收藏人气</p>
       </van-grid-item>
       <van-grid-item>
-        <p class="detail-infor-rank">{{zdyrq}}</p>
+        <p class="detail-infor-rank">{{ zdyrq }}</p>
         <p class="detail-infor-flag">自定义</p>
       </van-grid-item>
     </van-grid>
@@ -41,6 +41,7 @@
 
 <script>
 import DetailGallery from "./DetailGallery";
+import { getLike } from "@/request/like";
 
 export default {
   name: "DetailInfor",
@@ -48,7 +49,7 @@ export default {
     title: String,
     subTitle: String,
     imgs: Array,
-    like: Boolean,
+    id: [String, Number],
     address: String,
     dakarenqi: [String, Number],
     zdyrq: [String, Number],
@@ -67,9 +68,20 @@ export default {
   components: {
     DetailGallery,
   },
+  mounted() {
+    this.getLikeStatu();
+  },
   methods: {
     refreshLike() {
       this.love = !this.love;
+    },
+    async getLikeStatu() {
+      const json = await getLike();
+      if (json.code === 1) {
+        const allLikes = json.data;
+        const ifLike = allLikes.find((item) => item.id === this.id);
+        if (ifLike) this.love = true;
+      }
     },
   },
 };

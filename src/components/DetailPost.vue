@@ -3,7 +3,7 @@
     <h2 class="detail-title">阅读记</h2>
     <ul class="detail-post-list">
       <li v-for="item in post.slice(0,3)" :key="item.id" class="detail-post-item" @click="gotoDetail(item.id)">
-        <van-image width="80px" height="80px" :src="src" />
+        <van-image width="80px" height="80px" :src="item.src" />
         <div class="detail-post-item-content">
           <h3 class="van-ellipsis">{{ item.title }}</h3>
           <p class="van-ellipsis">
