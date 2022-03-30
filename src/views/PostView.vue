@@ -3,12 +3,13 @@
     <van-skeleton title :row="3" :loading="loading">
       <template v-if="pageData">
         <div class="post-page-header">
-          <van-image :src="pageData.thumb" width="40" height="40" round />
+          <van-image :src="pageData.touxiang" width="40" height="40" round />
           <div class="post-page-header-content">
             <h3>{{ pageData.author }}</h3>
             <p>{{ pageData.inputtime }}</p>
           </div>
         </div>
+          <van-image width="100%" :src="pageData.thumb" />
         <h1 class="post-page-title">{{ pageData.title }}</h1>
         <div v-html="pageData.content" class="post-page-content"></div>
         <DetailFooter needShare />

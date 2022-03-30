@@ -19,7 +19,7 @@
     <div class="detail-infor-text">
       <div class="van-ellipsis">详细地址：{{ address }}</div>
       <div class="van-ellipsis">
-        联系电话：<a href="tel:021-6612785">021-6612785</a>
+        联系方式：<a href="tel:021-6612785">021-6612785</a>
       </div>
     </div>
 
