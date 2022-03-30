@@ -16,7 +16,7 @@
         <DetailWeChat :url="pageData.offiaccount" />
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
-        <DetailPost :post="post" />
+        <DetailPost :post="post" v-if="post.length" />
         <DetailFooter needShare needDaka />
       </template>
       <van-empty v-else image="error" description="网络异常">

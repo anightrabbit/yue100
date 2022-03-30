@@ -8,7 +8,7 @@
         @click="gotoDetail(item.id)"
       >
         <a href="" class="van-ellipsis">{{ item.title }}</a
-        ><span>{{ item.date }}</span>
+        ><span>{{ item.addtime }}</span>
       </li>
     </ul>
     <div @click="toggleNews" class="detail-news-option" v-if="news.length > 2">
