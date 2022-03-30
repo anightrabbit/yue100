@@ -41,7 +41,7 @@
 
 <script>
 import DetailGallery from "./DetailGallery";
-import { getLike } from "@/request/like";
+import { getLike, updateLike } from "@/request/like";
 
 export default {
   name: "DetailInfor",
@@ -72,8 +72,14 @@ export default {
     this.getLikeStatu();
   },
   methods: {
-    refreshLike() {
-      this.love = !this.love;
+    async refreshLike() {
+      const json = await updateLike(this.id);
+      if (json.code === 1) {
+        this.$toast.success("收藏成功");
+        this.love = !this.love;
+      } else {
+        this.$toast.fail(json.msg || "收藏失败");
+      }
     },
     async getLikeStatu() {
       const json = await getLike();
