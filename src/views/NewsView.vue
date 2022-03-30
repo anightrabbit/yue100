@@ -3,7 +3,7 @@
     <van-skeleton title :row="3" :loading="loading">
       <template v-if="pageData">
         <div class="news-page-header">
-          <p>发布来源：{{ pageData.title }}</p>
+          <p>发布来源：{{ pageData.laiyuan || "未知" }}</p>
           <p>发布时间：{{ pageData.inputtime }}</p>
           <h1>{{ pageData.title }}</h1>
         </div>

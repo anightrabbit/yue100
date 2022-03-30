@@ -20,7 +20,7 @@
       <div class="detail-wechat-popup">
         <h3 class="van-ellipsis">虹口区图书馆乍浦分馆</h3>
         <p>保存图片后用微信扫码关注</p>
-        <van-image width="144" height="144" src="https://img01.yzcdn.cn/vant/apple-2.jpg" />
+        <van-image width="144" height="144" :src="url" />
       </div>
       <van-button
         round

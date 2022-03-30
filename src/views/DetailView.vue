@@ -13,7 +13,7 @@
           :zdyrq="pageData.zdyrq"
           :id="pageData.id"
         />
-        <DetailWeChat />
+        <DetailWeChat :url="pageData.offiaccount" />
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
         <DetailPost :post="post" />
