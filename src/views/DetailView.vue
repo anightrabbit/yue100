@@ -19,7 +19,7 @@
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare needDaka />
+        <DetailFooter needShare :needDaka="!isDaka" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
@@ -46,7 +46,7 @@ import DetailPost from "@/components/DetailPost";
 import getDetail from "@/request/detail";
 import { getNews } from "@/request/news";
 import { getPost } from "@/request/post";
-import { refreshDaka } from "@/request/daka";
+import { refreshDaka, getDaka } from "@/request/daka";
 
 export default {
   name: "DetailView",
@@ -63,6 +63,7 @@ export default {
     return {
       news: [],
       post: [],
+      isDaka: false,
       loading: true,
       pageData: null,
     };
@@ -84,6 +85,7 @@ export default {
       }
       await this.getNewsData(params?.id);
       await this.getPostData();
+      await this.getDakaData();
     },
     async getNewsData(relid) {
       if (!relid) return false;
@@ -98,17 +100,25 @@ export default {
         this.post = json.data;
       }
     },
-    async dakaAction (lng,lat) {
-      if(!this.pageData?.id) return
+    async dakaAction(lng, lat) {
+      if (!this.pageData?.id) return;
       const json = await refreshDaka({
         lng,
         lat,
-        id: this.pageData?.id
+        id: this.pageData?.id,
       });
       if (json.code === 1) {
-        this.$toast.success("打卡成功")
+        this.$toast.success("打卡成功");
       }
-    }
+    },
+    async getDakaData() {
+      const json = await getDaka();
+      if (json.code === 1) {
+        const allDaka = json.data;
+        const ifDaka = allDaka.find((item) => item.id === this.id);
+        if (ifDaka) this.isDaka = true;
+      }
+    },
   },
 };
 </script>
