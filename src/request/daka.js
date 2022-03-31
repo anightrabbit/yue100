@@ -1,12 +1,12 @@
 import Vue from "vue";
 
-export const getLike = () => {
+export const getDaka = () => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
     if (!uid || !code) return;
     const query = {
         s: 'form',
-        c: 'shoucangjilu',
+        c: 'dakajilu',
         m: 'list',
         appid: process.env.VUE_APP_ID,
         appsecret: process.env.VUE_APP_SECRET,
@@ -23,14 +23,13 @@ export const getLike = () => {
     })
 }
 
-
-export const updateLike = (id) => {
+export const refreshDaka = (params = {}) => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
     if (!uid || !code) return;
     const query = {
         s: 'form',
-        c: 'shoucangjilu',
+        c: 'dakajilu',
         m: 'post',
         appid: process.env.VUE_APP_ID,
         appsecret: process.env.VUE_APP_SECRET,
@@ -40,7 +39,9 @@ export const updateLike = (id) => {
     const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
 
     const body = {
-        "data[yuedudian][]": id
+        "data[yuedudian][]": parmas?.id,
+        "data[lng]": parmas?.lng,
+        "data[lat]": parmas?.lat
     }
     const options = {
         headers: {
@@ -49,7 +50,7 @@ export const updateLike = (id) => {
         emulateJSON: true,
         params: query,
     }
-    return Vue.http.post(url,body, options).then(json => {
+    return Vue.http.post(url, body, options).then(json => {
         return json.body;
     }, err => {
         console.log(err)
