@@ -13,6 +13,7 @@
           :zdyrq="pageData.zdyrq"
           :id="pageData.id"
           :lxfs="pageData.lxfs"
+          @dakaAction="dakaAction"
         />
         <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" />
         <DetailNews :news="news" v-if="news.length" />
@@ -45,6 +46,7 @@ import DetailPost from "@/components/DetailPost";
 import getDetail from "@/request/detail";
 import { getNews } from "@/request/news";
 import { getPost } from "@/request/post";
+import { refreshDaka } from "@/request/daka";
 
 export default {
   name: "DetailView",
@@ -96,6 +98,17 @@ export default {
         this.post = json.data;
       }
     },
+    async dakaAction (lng,lat) {
+      if(!this.pageData?.id) return
+      const json = await refreshDaka({
+        lng,
+        lat,
+        id: this.pageData?.id
+      });
+      if (json.code === 1) {
+        this.$toast.success("打卡成功")
+      }
+    }
   },
 };
 </script>

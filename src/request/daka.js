@@ -23,7 +23,11 @@ export const getDaka = () => {
     })
 }
 
-export const refreshDaka = (params = {}) => {
+export const refreshDaka = ({
+    id,
+    lng,
+    lat
+}) => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
     if (!uid || !code) return;
@@ -39,9 +43,9 @@ export const refreshDaka = (params = {}) => {
     const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
 
     const body = {
-        "data[yuedudian][]": parmas?.id,
-        "data[lng]": parmas?.lng,
-        "data[lat]": parmas?.lat
+        "data[yuedudian][]": id,
+        "data[lng]": lng,
+        "data[lat]": lat
     }
     const options = {
         headers: {

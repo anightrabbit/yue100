@@ -38,17 +38,18 @@ export default {
   props: {
     needShare: Boolean,
     needDaka: Boolean,
+    dakaAction: Function,
   },
   computed: {
     getColumnNum() {
       return this.needShare + this.needDaka;
     },
     getShareButtunStyle() {
-      if(this.needShare && !this.needDaka) {
+      if (this.needShare && !this.needDaka) {
         return false;
       }
-      return true
-    }
+      return true;
+    },
   },
   data() {
     return {
@@ -67,6 +68,26 @@ export default {
         message: "打卡中...",
         forbidClick: true,
       });
+      if (navigator.geolocation.getCurrentPosition) {
+        navigator.geolocation.getCurrentPosition(
+          (json) => {
+            const pos = json.coords;
+            console.log("Latitude : " + pos.latitude);
+            console.log("Longitude: " + pos.longitude);
+            this.dakaAction(pos.longitude,pos.latitude);
+          },
+          (error) => {
+            this.$toast.fail(error?.message || "定位失败");
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000, // 5s超时设置
+            maximumAge: 0,
+          }
+        );
+      } else {
+        this.$toast.fail("当前浏览器不支持该功能");
+      }
     },
   },
 };
