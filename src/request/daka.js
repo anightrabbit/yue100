@@ -13,7 +13,7 @@ export const getDaka = () => {
         api_auth_uid: uid,
         api_auth_code: code,
     }
-    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+    const url = process.env.VUE_APP_API + process.env.VUE_APP_API_PATH
     return Vue.http.get(url, {
         params: query
     }).then(json => {
@@ -40,7 +40,7 @@ export const refreshDaka = ({
         api_auth_uid: uid,
         api_auth_code: code,
     }
-    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+    const url = process.env.VUE_APP_API + process.env.VUE_APP_API_PATH
 
     const body = {
         "data[yuedudian][]": id,

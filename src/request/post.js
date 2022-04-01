@@ -8,7 +8,7 @@ export const getPost = () => {
         appid: process.env.VUE_APP_ID,
         appsecret: process.env.VUE_APP_SECRET
     }
-    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+    const url = process.env.VUE_APP_API + process.env.VUE_APP_API_PATH
     return Vue.http.get(url, {
         params: query
     }).then(json => {
@@ -27,7 +27,7 @@ export const getPostDetail = (id = 50) => {
         appid: process.env.VUE_APP_ID,
         appsecret: process.env.VUE_APP_SECRET
     }
-    const url = process.env.BASE_URL + process.env.VUE_APP_API_PATH
+    const url = process.env.VUE_APP_API + process.env.VUE_APP_API_PATH
     return Vue.http.get(url, {
         params: query
     }).then(json => {
