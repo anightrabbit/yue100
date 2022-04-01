@@ -5,7 +5,7 @@
         <DetailHeader :src="pageData.thumb" />
         <DetailInfor
           :title="pageData.title"
-          :description="pageData.description"
+          :yysj="pageData.yysj"
           :imgs="pageData.images"
           :address="pageData.address"
           :dakarenqi="pageData.dakarenqi"
@@ -15,11 +15,11 @@
           :lxfs="pageData.lxfs"
           v-on:like-action="getPageData"
         />
-        <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" />
+        <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" v-if="pageData.offiaccount" />
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare :needDaka="!isDaka" v-on:daka-action="dakaAction" />
+        <DetailFooter needShare :needDaka="!isDaka" :id="pageData.id" v-on:daka-action="getPageData" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
@@ -46,7 +46,7 @@ import DetailPost from "@/components/DetailPost";
 import getDetail from "@/request/detail";
 import { getNews } from "@/request/news";
 import { getPost } from "@/request/post";
-import { refreshDaka, getDaka } from "@/request/daka";
+import { getDaka } from "@/request/daka";
 
 export default {
   name: "DetailView",
@@ -104,22 +104,6 @@ export default {
       const json = await getPost();
       if (json.code === 1) {
         this.post = json.data;
-      }
-    },
-    async dakaAction(lng, lat) {
-      console.log(lng,lat)
-      if (!this.pageData?.id) return;
-      const json = await refreshDaka({
-        lng,
-        lat,
-        id: this.pageData?.id,
-      });
-      if (json.code === 1) {
-        this.$toast.success("打卡成功");
-        // 需要刷新打卡人气值
-        await this.getPageData();
-      } else {
-        this.$toast.fail(json?.msg || "打卡失败")
       }
     },
     async getDakaData() {

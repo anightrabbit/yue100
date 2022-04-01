@@ -2,7 +2,7 @@
   <div class="detail-infor">
     <!-- <van-cell :title="title" value="" :label="subTitle" /> -->
     <h1 class="detail-infor-title van-ellipsis">{{ title }}</h1>
-    <p class="detail-infor-desc van-multi-ellipsis--l3">{{ description }}</p>
+    <p class="detail-infor-desc van-multi-ellipsis--l3" v-if="yysj">{{ yysj }}</p>
     <!-- 收藏/取消收藏 -->
     <div class="detail-like" @click="refreshLike">
       <van-image
@@ -49,7 +49,7 @@ export default {
   name: "DetailInfor",
   props: {
     title: String,
-    description: String,
+    yysj: String,
     imgs: Array,
     id: [String, Number],
     address: String,
