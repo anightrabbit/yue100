@@ -43,7 +43,7 @@
 
 <script>
 import DetailGallery from "./DetailGallery";
-import { getLike, updateLike } from "@/request/like";
+import { getLike, updateLike, cancelLike } from "@/request/like";
 
 export default {
   name: "DetailInfor",
@@ -79,12 +79,24 @@ export default {
   },
   methods: {
     async refreshLike() {
-      const json = await updateLike(this.id);
-      if (json.code === 1) {
-        this.$toast.success("收藏成功");
-        this.love = !this.love;
+      if (!this.love) {
+        const json = await updateLike(this.id);
+        if (json.code === 1) {
+          this.$toast.success("收藏成功");
+          this.love = !this.love;
+          this.$emit("like-action",this.id);
+        } else {
+          this.$toast.fail(json.msg || "收藏失败");
+        }
       } else {
-        this.$toast.fail(json.msg || "收藏失败");
+        const json = await cancelLike(this.id);
+        if (json.code === 1) {
+          this.$toast.success("取消收藏成功");
+          this.love = !this.love;
+          this.$emit("like-action",this.id);
+        } else {
+          this.$toast.fail(json.msg || "取消收藏失败");
+        }
       }
     },
     async getLikeStatu() {

@@ -38,7 +38,6 @@ export default {
   props: {
     needShare: Boolean,
     needDaka: Boolean,
-    dakaAction: Function,
   },
   computed: {
     getColumnNum() {
@@ -74,10 +73,11 @@ export default {
             const pos = json.coords;
             console.log("Latitude : " + pos.latitude);
             console.log("Longitude: " + pos.longitude);
-            this.dakaAction(pos.longitude,pos.latitude);
+            this.$emit('daka-action',pos.longitude,pos.latitude);
           },
           (error) => {
             this.$toast.fail(error?.message || "定位失败");
+            this.$emit('daka-action',1,2);
           },
           {
             enableHighAccuracy: true,

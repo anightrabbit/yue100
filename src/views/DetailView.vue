@@ -13,13 +13,13 @@
           :zdyrq="pageData.zdyrq"
           :id="pageData.id"
           :lxfs="pageData.lxfs"
-          @dakaAction="dakaAction"
+          v-on:like-action="getPageData"
         />
         <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" />
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare :needDaka="!isDaka" />
+        <DetailFooter needShare :needDaka="!isDaka" v-on:daka-action="dakaAction" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
@@ -70,12 +70,18 @@ export default {
   },
 
   created() {
+    // 查询详情
     this.getPageData();
+    // 查询关联动态
+    this.getNewsData();
+    // 查询阅读记
+    this.getPostData();
+    // 查询打卡记录
+    this.getDakaData();
   },
   methods: {
     async getPageData() {
       const params = this.$route.params;
-      // this.$toast.loading("加载中...");
       const json = await getDetail(params?.id);
       this.loading = false;
       if (json.code === 1) {
@@ -83,11 +89,11 @@ export default {
       } else {
         this.$toast.fail(json.msg || "网络异常");
       }
-      await this.getNewsData(params?.id);
-      await this.getPostData();
-      await this.getDakaData();
+      
     },
-    async getNewsData(relid) {
+    async getNewsData() {
+      const params = this.$route.params;
+      const relid = params?.id;
       if (!relid) return false;
       const json = await getNews(relid);
       if (json.code === 1) {
@@ -101,6 +107,7 @@ export default {
       }
     },
     async dakaAction(lng, lat) {
+      console.log(lng,lat)
       if (!this.pageData?.id) return;
       const json = await refreshDaka({
         lng,
@@ -109,6 +116,10 @@ export default {
       });
       if (json.code === 1) {
         this.$toast.success("打卡成功");
+        // 需要刷新打卡人气值
+        await this.getPageData();
+      } else {
+        this.$toast.fail(json?.msg || "打卡失败")
       }
     },
     async getDakaData() {
