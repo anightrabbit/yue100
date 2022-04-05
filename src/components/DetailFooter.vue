@@ -25,6 +25,7 @@
     </van-grid>
     <PopupShare v-on:toggle-popup="toggleShare" v-if="showShare" />
     <PopupDaka v-on:toggle-popup="toggleDaka" :url="url" v-if="showDaka" />
+    <PopupLogin v-on:toggle-popup="toggleLogin" v-if="showLogin" />
   </div>
 </template>
 
@@ -34,12 +35,14 @@ import { getWxConfig } from "@/request/wxConfig";
 import { wxConfig, isInWeChatApp, getLocation } from "@/utils";
 import PopupShare from "./PopupShare.vue";
 import PopupDaka from "./PopupDaka.vue";
+import PopupLogin from "./PopupLogin.vue";
 
 export default {
   name: "DetailFooter",
   components: {
     PopupShare,
     PopupDaka,
+    PopupLogin
   },
   props: {
     needShare: Boolean,
@@ -61,6 +64,7 @@ export default {
     return {
       showShare: false,
       showDaka: false,
+      showLogin: false,
       url: "",
     };
   },
@@ -79,6 +83,9 @@ export default {
     },
     toggleDaka() {
       this.showDaka = false;
+    },
+    toggleLogin() {
+      this.showLogin = false;
     },
     daka() {
       this.$toast.loading({
@@ -119,8 +126,12 @@ export default {
         lat,
         id,
       });
-      if (json.code === 1) {
-        this.url = json?.url;
+      if (json === "未登录") {
+        console.log();
+        this.showLogin = true;
+      } else if (json?.code === 1) {
+        // this.url = json?.url;
+        console.log("json?.dakaAction", json);
         // this.$toast.success("打卡成功");
         this.setDaka();
         await this.$emit("daka-action");

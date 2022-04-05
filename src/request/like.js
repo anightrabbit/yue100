@@ -3,7 +3,7 @@ import Vue from "vue";
 export const getLike = () => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
-    if (!uid || !code) return;
+    // if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
         c: 'shoucangjilu',
@@ -27,7 +27,7 @@ export const getLike = () => {
 export const updateLike = (id) => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
-    if (!uid || !code) return;
+    if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
         c: 'shoucangjilu',
@@ -59,7 +59,7 @@ export const updateLike = (id) => {
 export const cancelLike = (id) => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
-    if (!uid || !code) return;
+    if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
         c: 'shoucangjilu',

@@ -4,15 +4,7 @@
     <h1 class="detail-infor-title van-ellipsis">{{ title }}</h1>
     <p class="detail-infor-desc van-multi-ellipsis--l3" v-if="yysj">{{ yysj }}</p>
     <!-- 收藏/取消收藏 -->
-    <div class="detail-like" @click="refreshLike">
-      <van-image
-        width="14"
-        height="14"
-        :src="require(`../assets/${getLikeImg}.svg`)"
-        style="margin-right: 5px"
-      />
-      <span class="detail-like-text">{{ love ? "已" : "" }}收藏</span>
-    </div>
+    <DetailLike :id="id" />
     <!-- 相册 -->
     <DetailGallery :imgs="imgs" v-if="imgs.length" />
     <!-- 地址/电话 -->
@@ -43,7 +35,7 @@
 
 <script>
 import DetailGallery from "./DetailGallery";
-import { getLike, updateLike, cancelLike } from "@/request/like";
+import DetailLike from "./DetailLike";
 
 export default {
   name: "DetailInfor",
@@ -59,54 +51,13 @@ export default {
     lxfs: String,
   },
   computed: {
-    getLikeImg() {
-      return this.love ? "like" : "unlike";
-    },
     phone() {
       return "tel:" + this.lxfs;
     },
   },
-  data() {
-    return {
-      love: false,
-    };
-  },
   components: {
     DetailGallery,
-  },
-  mounted() {
-    this.getLikeStatu();
-  },
-  methods: {
-    async refreshLike() {
-      if (!this.love) {
-        const json = await updateLike(this.id);
-        if (json.code === 1) {
-          this.$toast.success("收藏成功");
-          this.love = !this.love;
-          this.$emit("like-action",this.id);
-        } else {
-          this.$toast.fail(json.msg || "收藏失败");
-        }
-      } else {
-        const json = await cancelLike(this.id);
-        if (json.code === 1) {
-          this.$toast.success("取消收藏成功");
-          this.love = !this.love;
-          this.$emit("like-action",this.id);
-        } else {
-          this.$toast.fail(json.msg || "取消收藏失败");
-        }
-      }
-    },
-    async getLikeStatu() {
-      const json = await getLike();
-      if (json?.code === 1) {
-        const allLikes = json.data;
-        const ifLike = allLikes.find((item) => item.id === this.id);
-        if (ifLike) this.love = true;
-      }
-    },
+    DetailLike,
   },
 };
 </script>
@@ -134,7 +85,7 @@ export default {
   line-height: 2;
   padding: 0px 16px;
 }
-.detail-like {
+/* .detail-like {
   position: absolute;
   right: 20px;
   top: 20px;
@@ -145,7 +96,7 @@ export default {
   color: rgba(51, 51, 51, 1);
   font-size: 12px;
   line-height: 1.5;
-}
+} */
 .detail-infor-text {
   padding: 10px 16px;
   overflow: hidden;

@@ -1,5 +1,5 @@
 <template>
-  <van-popup v-model="show" style="background: transparent" @close="closePopup">
+  <van-popup v-model="show" style="background: transparent" @close="closePopup" safe-area-inset-bottom>
     <van-image width="270" height="388" :src="url" class="popup-daka-image" />
     <div class="popup-daka-buttons">
       <van-button

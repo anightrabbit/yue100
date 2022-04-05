@@ -6,6 +6,7 @@
     @close="closePopup"
     close-icon="close"
     position="bottom"
+    safe-area-inset-bottom
   >
     <h3 class="popup-share-title">分享到</h3>
     <van-grid clickable :column-num="2" :border="false">

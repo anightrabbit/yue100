@@ -3,7 +3,7 @@ import Vue from "vue";
 export const getDaka = () => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
-    if (!uid || !code) return;
+    if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
         c: 'dakajilu',
@@ -30,7 +30,7 @@ export const refreshDaka = ({
 }) => {
     const uid = window.localStorage.getItem('YUE100_UID');
     const code = window.localStorage.getItem('YUE100_CODE');
-    if (!uid || !code) return;
+    if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
         c: 'dakajilu',

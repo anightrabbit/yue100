@@ -45,8 +45,6 @@ export const updateAppMessageShareData = (wechatShareFriendTitle, wechatShareFri
         desc: wechatShareFriendConent,
         link: wechatShareFriendUrl,
         imgUrl: wechatShareFriendImg,
-        type: 'link',
-        dataUrl: '',
         success: () => {},
         cancel: () => {}
     })
