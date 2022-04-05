@@ -5,17 +5,30 @@ export const getUrlQuery = (search = location.search) => {
     return queryString.parse(search)
 }
 
-export const wxConfig = ({ appId,timestamp,nonceStr,signature}) => {
-   wx.config({
+export const isInWeChatApp = () => {
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+    }
+    return false;
+};
+
+export const wxConfig = ({
+    appId,
+    timestamp,
+    nonceStr,
+    signature
+}) => {
+    wx.config({
         debug: true,
         appId,
         timestamp,
         nonceStr,
         signature,
-        jsApiList: ['checkJsApiList','updateTimelineShareData', 'updateAppMessageShareData','getLocation','chooseImage','downloadImage']
+        jsApiList: ['checkJsApiList', 'updateTimelineShareData', 'updateAppMessageShareData', 'getLocation', 'chooseImage', 'downloadImage']
     });
     wx.ready((json) => {
-        console.log('json',json)
+        console.log('json', json)
     });
     wx.error((error) => {
         console.log('error', error)

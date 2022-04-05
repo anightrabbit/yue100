@@ -30,6 +30,8 @@
 
 <script>
 import { refreshDaka } from "@/request/daka";
+import { getWxConfig } from "@/request/wxConfig";
+import { wxConfig,isInWeChatApp } from "@/utils";
 import PopupShare from "./PopupShare.vue";
 import PopupDaka from "./PopupDaka.vue";
 
@@ -61,6 +63,9 @@ export default {
       showDaka: false,
       url: "",
     };
+  },
+  created() {
+    this.initWxConfig()
   },
   methods: {
     setShare() {
@@ -123,6 +128,13 @@ export default {
         this.$toast.fail(json?.msg || "打卡失败");
       }
     },
+    async initWxConfig() {
+      if(!isInWeChatApp) return;
+      const json = await getWxConfig();
+      if (json?.code === 1) {
+        wxConfig(json.data)
+      }
+    }
   },
 };
 </script>
