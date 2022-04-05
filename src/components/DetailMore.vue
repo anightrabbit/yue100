@@ -39,4 +39,11 @@ export default {
 .detail-more img {
   max-width: 100%;
 }
+.detail-more p.MsoNormal {
+  position: relative;
+  overflow: hidden;
+}
+.detail-more p.MsoNormal v {
+  display: none;
+}
 </style>
