@@ -42,7 +42,7 @@ export default {
   components: {
     PopupShare,
     PopupDaka,
-    PopupLogin
+    PopupLogin,
   },
   props: {
     needShare: Boolean,
@@ -68,7 +68,7 @@ export default {
       url: "",
     };
   },
-  created() {
+  async created() {
     this.initWxConfig();
   },
   methods: {
@@ -127,7 +127,6 @@ export default {
         id,
       });
       if (json === "未登录") {
-        console.log();
         this.showLogin = true;
       } else if (json?.code === 1) {
         // this.url = json?.url;
@@ -140,16 +139,19 @@ export default {
       }
     },
     async initWxConfig() {
-      if (!isInWeChatApp) return;
-      const json = await getWxConfig();
-      if (json?.code === 1) {
-        wxConfig(json.data);
+      if (isInWeChatApp()) {
+        const json = await getWxConfig();
+        if (json?.code === 1) {
+          wxConfig(json.data);
+        }
       }
     },
     switchDaka() {
-      if (isInWeChatApp) {
+      if (isInWeChatApp()) {
+        console.log("1");
         this.wxGetLocation();
       } else {
+        console.log("2");
         this.daka();
       }
     },
