@@ -108,7 +108,7 @@ export default {
     },
     async getDakaData() {
       const json = await getDaka();
-      if (json.code === 1) {
+      if (json?.code === 1) {
         const allDaka = json.data;
         const ifDaka = allDaka.find((item) => item.id === this.id);
         if (ifDaka) this.isDaka = true;

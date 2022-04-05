@@ -6,10 +6,11 @@
 
 <script>
 import { getUrlQuery } from "@/utils"
+import { getWxConfig} from "@/request/wxConfig"
 
 export default {
   name: "App",
-  created() {
+  async created() {
     const query = getUrlQuery();
     // 接入参数 api_auth_uid，api_auth_code
     // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
@@ -21,6 +22,7 @@ export default {
     if(query?.api_auth_code) {
       window.localStorage.setItem('YUE100_CODE', query?.api_auth_code)
     }
+    await getWxConfig()
   },
 }
 </script>

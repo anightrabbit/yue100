@@ -101,7 +101,7 @@ export default {
     },
     async getLikeStatu() {
       const json = await getLike();
-      if (json.code === 1) {
+      if (json?.code === 1) {
         const allLikes = json.data;
         const ifLike = allLikes.find((item) => item.id === this.id);
         if (ifLike) this.love = true;
