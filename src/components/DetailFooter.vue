@@ -18,7 +18,7 @@
           type="primary"
           color="rgba(129, 106, 253, 1)"
           block
-          @click="daka"
+          @click="switchDaka"
           >我要打卡</van-button
         >
       </van-grid-item>
@@ -31,7 +31,7 @@
 <script>
 import { refreshDaka } from "@/request/daka";
 import { getWxConfig } from "@/request/wxConfig";
-import { wxConfig,isInWeChatApp } from "@/utils";
+import { wxConfig, isInWeChatApp, getLocation } from "@/utils";
 import PopupShare from "./PopupShare.vue";
 import PopupDaka from "./PopupDaka.vue";
 
@@ -65,7 +65,7 @@ export default {
     };
   },
   created() {
-    this.initWxConfig()
+    this.initWxConfig();
   },
   methods: {
     setShare() {
@@ -129,12 +129,34 @@ export default {
       }
     },
     async initWxConfig() {
-      if(!isInWeChatApp) return;
+      if (!isInWeChatApp) return;
       const json = await getWxConfig();
       if (json?.code === 1) {
-        wxConfig(json.data)
+        wxConfig(json.data);
       }
-    }
+    },
+    switchDaka() {
+      if (isInWeChatApp) {
+        this.wxGetLocation();
+      } else {
+        this.daka();
+      }
+    },
+    wxGetLocation() {
+      getLocation(
+        (pos) => {
+          this.dakaAction({
+            lng: pos.longitude,
+            lat: pos.latitude,
+            id: this.id,
+          });
+        },
+        (error) => {
+          this.$toast.fail(error?.message || "定位失败");
+          this.$emit("daka-action", 1, 2);
+        }
+      );
+    },
   },
 };
 </script>

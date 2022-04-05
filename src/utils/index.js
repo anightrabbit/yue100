@@ -20,19 +20,13 @@ export const wxConfig = ({
     signature
 }) => {
     wx.config({
-        debug: true,
+        debug: false,
         appId,
         timestamp,
         nonceStr,
         signature,
-        jsApiList: ['checkJsApiList', 'updateTimelineShareData', 'updateAppMessageShareData', 'getLocation', 'chooseImage', 'downloadImage']
+        jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData', 'getLocation', 'chooseImage', 'downloadImage']
     });
-    wx.ready((json) => {
-        console.log('json', json)
-    });
-    wx.error((error) => {
-        console.log('error', error)
-    })
 }
 
 export const updateTimelineShareData = (wechatShareFriendTitle, wechatShareFriendUrl, wechatShareFriendImg) => {
@@ -55,5 +49,17 @@ export const updateAppMessageShareData = (wechatShareFriendTitle, wechatShareFri
         dataUrl: '',
         success: () => {},
         cancel: () => {}
+    })
+}
+
+export const getLocation = (successCallback, failCallback) => {
+    return wx.getLocation({
+        type: 'wgs84',
+        success: (res) => {
+            successCallback && successCallback(res);
+        },
+        cancel: () => {
+            failCallback && failCallback()
+        }
     })
 }

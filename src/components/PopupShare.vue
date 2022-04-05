@@ -39,10 +39,10 @@ export default {
       this.$emit("toggle-popup");
     },
     updateAppMessageShareDataFn() {
-      updateAppMessageShareData('悦读100', location.href.split('#')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png')
+      updateAppMessageShareData('悦读100','悦读1000', location.href.split('#')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png')
     },
     updateTimelineShareDataFn() {
-      updateTimelineShareData('悦读100', '悦读1000', location.href.split('#')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png')
+      updateTimelineShareData('悦读100', location.href.split('#')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png')
     }
   },
 };
