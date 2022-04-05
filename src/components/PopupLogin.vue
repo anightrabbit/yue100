@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { login } from "@/request/login";
+// import { login } from "@/request/login";
 
 export default {
   name: "PopupLogin",
@@ -28,21 +28,23 @@ export default {
       this.$emit("toggle-popup");
     },
     async onLogin() {
-      const json = await login();
-      if (json?.code === 1) {
-        console.log(json.data);
-        const { id, api_auth_code, headimgurl, mingyan, zuozhe, bgimage } =
-          json?.data || {};
-        window.localStorage.setItem("YUE100_UID", id);
-        window.localStorage.setItem("YUE100_CODE", api_auth_code);
-        window.localStorage.setItem("YUE100_HEADIMG", headimgurl);
-        window.localStorage.setItem("YUE100_MINGYAN", mingyan);
-        window.localStorage.setItem("YUE100_ZUOZHE", zuozhe);
-        window.localStorage.setItem("YUE100_BGIMAGE", bgimage);
-        this.closePopup();
-      } else {
-        this.$toast.fail(json?.msg || "登录失败");
-      }
+      return (location.href =
+        "https://haoshengyi.link/index.php?s=weixin&c=go");
+      // const json = await login();
+      // if (json?.code === 1) {
+      //   console.log(json.data);
+      //   const { id, api_auth_code, headimgurl, mingyan, zuozhe, bgimage } =
+      //     json?.data || {};
+      //   window.localStorage.setItem("YUE100_UID", id);
+      //   window.localStorage.setItem("YUE100_CODE", api_auth_code);
+      //   window.localStorage.setItem("YUE100_HEADIMG", headimgurl);
+      //   window.localStorage.setItem("YUE100_MINGYAN", mingyan);
+      //   window.localStorage.setItem("YUE100_ZUOZHE", zuozhe);
+      //   window.localStorage.setItem("YUE100_BGIMAGE", bgimage);
+      //   this.closePopup();
+      // } else {
+      //   this.$toast.fail(json?.msg || "登录失败");
+      // }
     },
   },
 };
