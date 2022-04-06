@@ -27,10 +27,14 @@ export const wxConfig = ({
         signature,
         jsApiList: ['updateTimelineShareData', 'updateAppMessageShareData', 'getLocation', 'chooseImage', 'downloadImage']
     });
+    wx.ready(() => {
+        updateTimelineShareData('悦读100', location.href.split('?')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png');
+        updateAppMessageShareData('悦读100','悦读1000', location.href.split('?')[0], 'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png');
+    });
 }
 
 export const updateTimelineShareData = (wechatShareFriendTitle, wechatShareFriendUrl, wechatShareFriendImg) => {
-    return wx.updateTimelineShareData({
+    wx.updateTimelineShareData({
         title: wechatShareFriendTitle,
         link: wechatShareFriendUrl,
         imgUrl: wechatShareFriendImg,
@@ -40,7 +44,7 @@ export const updateTimelineShareData = (wechatShareFriendTitle, wechatShareFrien
 }
 
 export const updateAppMessageShareData = (wechatShareFriendTitle, wechatShareFriendConent, wechatShareFriendUrl, wechatShareFriendImg) => {
-    return wx.updateAppMessageShareData({
+    wx.updateAppMessageShareData({
         title: wechatShareFriendTitle,
         desc: wechatShareFriendConent,
         link: wechatShareFriendUrl,
