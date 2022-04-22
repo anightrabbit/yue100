@@ -1,14 +1,28 @@
 <template>
   <div class="detail-post">
-    <h2 class="detail-title">阅读记</h2>
+    <h2 class="detail-title">
+      <strong>阅读记</strong>
+      <van-icon @click="gotoList" name="arrow" />
+    </h2>
     <ul class="detail-post-list">
-      <li v-for="item in post.slice(0,3)" :key="item.id" class="detail-post-item" @click="gotoDetail(item.id)">
+      <li
+        v-for="item in post.slice(0, 3)"
+        :key="item.id"
+        class="detail-post-item"
+        @click="gotoDetail(item.id)"
+      >
         <van-image width="80px" height="80px" :src="item.thumb" fit="cover" />
         <div class="detail-post-item-content">
-          <h3 class="van-ellipsis">{{ item.title }}</h3>
-          <p class="van-ellipsis">
-            {{ item.author }} <span>|</span> {{ item.inputtime }}
-          </p>
+          <div>
+            <h3 class="van-ellipsis">{{ item.title }}</h3>
+            <p class="van-ellipsis" v-if="item.description">
+              {{ item.description }}
+            </p>
+          </div>
+          <div class="van-ellipsis detail-post-item-extra">
+            {{ item.zuozhe }} <span v-if="item.zuozhe && item.addtime">|</span>
+            {{ item.addtime }}
+          </div>
         </div>
       </li>
     </ul>
@@ -27,6 +41,11 @@ export default {
         path: `/post/${id}`,
       });
     },
+    gotoList() {
+      return this.$router.push({
+        path: "/post",
+      });
+    },
   },
 };
 </script>
@@ -43,6 +62,9 @@ export default {
   line-height: 1.2;
   margin: 0 0 10px 0;
   padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .detail-post-item {
   display: flex;
@@ -69,13 +91,19 @@ export default {
   margin: 0;
 }
 .detail-post-item-content p {
+  color: rgba(51, 51, 51, 1);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+.detail-post-item-extra {
   color: rgba(102, 102, 102, 1);
   font-size: 10px;
   line-height: 1.8;
   margin: 0;
   text-align: right;
 }
-.detail-post-item-content p span {
+.detail-post-item-extra span {
   color: rgba(129, 106, 253, 1);
 }
 </style>

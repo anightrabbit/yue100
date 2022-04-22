@@ -15,6 +15,8 @@ export default {
     // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景2 阅读记详情 http://47.97.210.216/client/post/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景3 阅读点动态详情 http://47.97.210.216/client/news/10?api_auth_uid=1&api_auth_code=2
+    console.log(query?.api_auth_uid);
+     console.log(query?.api_auth_code);
     if(query?.api_auth_uid) {
       window.localStorage.setItem('YUE100_UID',query?.api_auth_uid)
     }
@@ -28,6 +30,7 @@ export default {
 <style>
 html {
   -webkit-tap-highlight-color: transparent;
+  height: 100%;
 }
 body {
   max-width: 100vw;
@@ -37,12 +40,13 @@ body {
   background-color: #f7f8fa;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  height: 100%;
 }
 #app {
   box-sizing: border-box;
   min-height: 100vh;
+  height: 100%;
   width: 100%;
-  overflow: hidden;
 }
 p {
   margin: 0;

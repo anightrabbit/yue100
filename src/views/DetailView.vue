@@ -17,9 +17,9 @@
         />
         <DetailWeChat :url="pageData.offiaccount" :title="pageData.title" v-if="pageData.offiaccount" />
         <DetailNews :news="news" v-if="news.length" />
-        <DetailMore :detail="pageData.content" />
+        <DetailMore :detail="pageData.content" v-if="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare :needDaka="!isDaka" :id="pageData.id" v-on:daka-action="getPageData" />
+        <DetailFooter needShare :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" :pageData="pageData" v-on:daka-action="getPageData" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
@@ -45,7 +45,7 @@ import DetailFooter from "@/components/DetailFooter";
 import DetailPost from "@/components/DetailPost";
 import getDetail from "@/request/detail";
 import { getNews } from "@/request/news";
-import { getPost } from "@/request/post";
+import { aboutPost } from "@/request/post";
 import { getDaka } from "@/request/daka";
 
 export default {
@@ -74,7 +74,7 @@ export default {
     this.getPageData();
     // 查询关联动态
     this.getNewsData();
-    // 查询阅读记
+    // 查询关联阅读记
     this.getPostData();
     // 查询打卡记录
     this.getDakaData();
@@ -89,7 +89,7 @@ export default {
       } else {
         this.$toast.fail(json.msg || "网络异常");
       }
-      
+
     },
     async getNewsData() {
       const params = this.$route.params;
@@ -101,7 +101,10 @@ export default {
       }
     },
     async getPostData() {
-      const json = await getPost();
+      const params = this.$route.params;
+      const relid = params?.id;
+      if (!relid) return false;
+      const json = await aboutPost(relid);
       if (json.code === 1) {
         this.post = json.data;
       }

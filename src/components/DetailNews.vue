@@ -1,12 +1,11 @@
 <template>
   <div class="detail-news">
     <h2 class="detail-title">最新动态</h2>
-    <ul :class="[showAll ? 'detail-news-list' : 'detail-news-list news-hide']" id="detail-news-list">
-      <li
-        v-for="item in news"
-        :key="item.id"
-        @click="gotoDetail(item.id)"
-      >
+    <ul
+      :class="[showAll ? 'detail-news-list' : 'detail-news-list news-hide']"
+      id="detail-news-list"
+    >
+      <li v-for="item in news" :key="item.id" @click="gotoDetail(item.id)">
         <a href="" class="van-ellipsis">{{ item.title }}</a
         ><span>{{ item.addtime }}</span>
       </li>
@@ -20,9 +19,9 @@
 
 <script>
 export default {
-  name: "DetailNews",
+  name: 'DetailNews',
   props: {
-    news: Array,
+    news: Array
   },
   data() {
     return {
@@ -33,15 +32,17 @@ export default {
     toggleNews() {
       this.showAll = !this.showAll
       const dom = document.getElementById('detail-news-list')
-      !this.showAll ? dom.classList.add('news-hide') : dom.classList.remove('news-hide')
+      !this.showAll
+        ? dom.classList.add('news-hide')
+        : dom.classList.remove('news-hide')
     },
     gotoDetail(id) {
       return this.$router.push({
-        path: `/news/${id}`,
-      });
+        path: `/news/${id}`
+      })
     }
-  },
-};
+  }
+}
 </script>
 
 <style>
@@ -62,11 +63,13 @@ export default {
   font-size: 12px;
   line-height: 18px;
   background: rgba(245, 245, 245, 1);
-  padding: 5px;
+  padding: 5px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 6px;
+  border-radius: 3px;
+
 }
 .detail-news-list li a {
   color: rgba(102, 102, 102, 1);

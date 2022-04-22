@@ -3,14 +3,15 @@
     <van-skeleton title :row="3" :loading="loading">
       <template v-if="pageData">
         <div class="post-page-header">
-          <van-image :src="pageData.touxiang" width="40" height="40" round fit="cover" />
+          <van-image :src="pageData.touxiang" width="40" height="40" class="post-author-img" round fit="cover" />
           <div class="post-page-header-content">
             <h3>{{ pageData.author }}</h3>
             <p>{{ pageData.inputtime }}</p>
           </div>
         </div>
-          <van-image width="100%" :src="pageData.thumb" />
+        <van-image width="100%" :src="pageData.thumb" />
         <h1 class="post-page-title">{{ pageData.title }}</h1>
+        <p class="post-page-description" v-if="pageData.description">{{pageData.description}}</p>
         <div v-html="pageData.content" class="post-page-content"></div>
         <DetailFooter needShare />
       </template>
@@ -82,6 +83,12 @@ export default {
   line-height: 2;
   margin: 20px 20px 0 20px;
 }
+.post-page-description {
+  color: rgba(0, 0, 0, 1);
+  font-size: 18px;
+  line-height: 2;
+  margin: 0 20px;
+}
 .post-page-header-content {
   display: flex;
   flex: 1;
@@ -106,5 +113,8 @@ export default {
 }
 .post-page-content img {
   max-width: 100%;
+}
+.post-author-img {
+  border:1px solid #ddd;
 }
 </style>
