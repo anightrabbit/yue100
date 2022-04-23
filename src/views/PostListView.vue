@@ -13,7 +13,7 @@
           :title="item.title"
           :id="item.id"
           :thumb="item.thumb"
-          :author="item.author"
+          :author="item.zuozhe"
           :inputtime="item.inputtime"
           :touxiang="item.touxiang"
         />

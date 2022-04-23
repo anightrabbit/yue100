@@ -27,9 +27,9 @@
           type="primary"
           color="rgba(129, 106, 253, 1)"
           block
-          disabled
+          @click="switchDaka"
           v-else
-          >我已打卡
+          >我的打卡记录
         </van-button>
       </van-grid-item>
     </van-grid>
@@ -99,6 +99,8 @@ export default {
     needDaka: Boolean,
     id: [String, Number],
     isDaka: Boolean,
+    pageData: Object,
+    isDakaTime: String,
   },
   computed: {
     getColumnNum() {
@@ -247,6 +249,20 @@ export default {
         this.showLogin = true;
         return false;
       }
+      if (this.isDaka) {
+        // 设置必要数据(头像,图片,昵称...)
+        this.mineCard.img1 = '';
+        this.mineCard.username = '';
+        this.mineCard.codeContent = this.pageData.qrcode;
+        this.mineCard.name = this.pageData.title;
+        this.mineCard.img2 = this.pageData.postcard;
+        const dktimes = this.isDakaTime.split("-");
+        this.mineCard.data = dktimes[0];
+        this.mineCard.subData = dktimes[1] + "/" + dktimes[2];
+        this.mineCard.tips = this.pageData.mxpsm;
+        this.showCard = true; // 最后显示海报
+        return true;
+      }
       if (isInWeChatApp()) {
         // 在微信中
         console.log("1");
@@ -256,14 +272,6 @@ export default {
         console.log("2");
         this.daka();
       }
-
-      // 设置必要数据(头像,图片,昵称...)
-      // this.mineCard.img1 = "http://xxx";
-      // const date = new Date();
-      // this.mineCard.img2 = this.pageData.postcard;
-      // this.mineCard.username = "summer";
-      // this.mineCard.data = date.getFullYear() + "";
-      // this.mineCard.subData = date.getMonth() + 1 + "/" + date.getDate();
     },
 
     wxGetLocation() {

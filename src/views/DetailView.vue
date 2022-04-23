@@ -19,7 +19,7 @@
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" v-if="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" :isDaka="!!pageData.isdaka" v-on:daka-action="getPageData" />
+        <DetailFooter needShare :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" :isDaka="!!pageData.isdaka" :pageData="pageData" :isDakaTime="isDakaTime" v-on:daka-action="getPageData" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
@@ -63,13 +63,16 @@ export default {
     return {
       news: [],
       post: [],
-      isDaka: false,
+      isDakaTime: '',
       loading: true,
       pageData: null,
+      pageId: ''
     };
   },
 
   created() {
+    const params = this.$route.params;
+    this.pageId = params?.id;
     // 查询详情
     this.getPageData();
     // 查询关联动态
@@ -81,8 +84,7 @@ export default {
   },
   methods: {
     async getPageData() {
-      const params = this.$route.params;
-      const json = await getDetail(params?.id);
+      const json = await getDetail(this.pageId);
       this.loading = false;
       if (json.code === 1) {
         this.pageData = json.data;
@@ -92,19 +94,15 @@ export default {
 
     },
     async getNewsData() {
-      const params = this.$route.params;
-      const relid = params?.id;
-      if (!relid) return false;
-      const json = await getNews(relid);
+      if (!this.pageId) return false;
+      const json = await getNews(this.pageId);
       if (json.code === 1) {
         this.news = json.data;
       }
     },
     async getPostData() {
-      const params = this.$route.params;
-      const relid = params?.id;
-      if (!relid) return false;
-      const json = await aboutPost(relid);
+      if (!this.pageId) return false;
+      const json = await aboutPost(this.pageId);
       if (json.code === 1) {
         this.post = json.data;
       }
@@ -113,8 +111,8 @@ export default {
       const json = await getDaka();
       if (json?.code === 1) {
         const allDaka = json.data;
-        const ifDaka = allDaka.find((item) => item.id === this.id);
-        if (ifDaka) this.isDaka = true;
+        const ifDaka = allDaka.find((item) => item.id === this.pageId);
+        if (ifDaka) this.isDakaTime = ifDaka.dktime.split(' ')[0];
       }
     },
   },

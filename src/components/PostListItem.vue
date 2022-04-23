@@ -10,7 +10,7 @@
         class="post-author-img"
       />
       <div class="post-page-header-content">
-        <h3>{{ author }}</h3>
+        <h3>{{ author || '匿名' }}</h3>
         <p>{{ inputtime }}</p>
       </div>
     </div>

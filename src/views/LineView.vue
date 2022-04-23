@@ -18,13 +18,14 @@
         <div @click="switchDaka">立即打卡</div>
       </div> -->
     </div>
-      <DetailFooter :isDaka="!!pageData.isdaka" :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" v-on:daka-action="getPageData" />
+      <DetailFooter :isDaka="!!pageData.isdaka" :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" v-on:daka-action="getPageData" :pageData="pageData" :isDakaTime="isDakaTime" />
   </div>
 </template>
 
 <script>
 import DetailFooter from '@/components/DetailFooter'
 import getDetail from '@/request/detail'
+import { getDaka } from "@/request/daka"
 
 export default {
   name: 'LineView',
@@ -47,21 +48,24 @@ export default {
         author: ''
       }, // 海报相关
       pageData: {},
+      pageId: '',
       showCard: false,
+      isDakaTime: '',
     }
   },
 
   created() {
+    const params = this.$route.params;
+    this.pageId = params?.id;
     this.getPageData();
-    
+    this.getDakaData();
   },
 
   
   methods: {
     async getPageData() {
-      const params = this.$route.params
-      const json = await getDetail(params?.id)
-      this.id = params?.id;
+      if(!this.pageId) return false;
+      const json = await getDetail(this.pageId)
       this.loading = false
       if (json.code === 1) {
         this.pageData = json.data
@@ -69,7 +73,15 @@ export default {
       } else {
         this.$toast.fail(json.msg || '网络异常')
       }
-    }
+    },
+    async getDakaData() {
+      const json = await getDaka();
+      if (json?.code === 1) {
+        const allDaka = json.data;
+        const ifDaka = allDaka.find((item) => item.id === this.pageId);
+        if (ifDaka) this.isDakaTime = ifDaka.dktime.split(' ')[0];
+      }
+    },
   }
 }
 </script>
