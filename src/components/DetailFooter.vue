@@ -251,8 +251,8 @@ export default {
       }
       if (this.isDaka) {
         // 设置必要数据(头像,图片,昵称...)
-        this.mineCard.img1 = '';
-        this.mineCard.username = '';
+        this.mineCard.img1 = window.localStorage.getItem('YUE100_HEADIMGURL') || '';
+        this.mineCard.username = window.localStorage.getItem('YUE100_USERNAME') || '';
         this.mineCard.codeContent = this.pageData.qrcode;
         this.mineCard.name = this.pageData.title;
         this.mineCard.img2 = this.pageData.postcard;

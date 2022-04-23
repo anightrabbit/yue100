@@ -11,7 +11,7 @@ export default {
   name: "App",
   created() {
     const query = getUrlQuery();
-    // 接入参数 api_auth_uid，api_auth_code
+    // 接入参数 api_auth_uid，api_auth_code,username,headimgurl,
     // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景2 阅读记详情 http://47.97.210.216/client/post/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景3 阅读点动态详情 http://47.97.210.216/client/news/10?api_auth_uid=1&api_auth_code=2
@@ -22,6 +22,12 @@ export default {
     }
     if(query?.api_auth_code) {
       window.localStorage.setItem('YUE100_CODE', query?.api_auth_code)
+    }
+    if(query?.username) {
+      window.localStorage.setItem('YUE100_USERNAME',query?.username)
+    }
+    if(query?.headimgurl) {
+      window.localStorage.setItem('YUE100_HEADIMGURL', query?.headimgurl)
     }
   },
 }
