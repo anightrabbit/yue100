@@ -43,7 +43,7 @@ export default {
   position: relative;
   overflow: hidden;
 }
-.detail-more p.MsoNormal v {
+.detail-more p v {
   display: none;
 }
 </style>
