@@ -79,6 +79,7 @@ export default {
   color: rgba(0, 0, 0, 1);
   font-size: 18px;
   margin: 10px 0;
+  text-align: center;
 }
 .news-page-content p {
   color: rgba(51, 51, 51, 1);

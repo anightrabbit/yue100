@@ -18,7 +18,7 @@
     <!-- 打卡人气/收藏人气/自定义 -->
     <van-grid class="van-hairline--top" :border="false" :column-num="3">
       <van-grid-item>
-        <p class="detail-infor-rank">No.{{ dakarenqi }}</p>
+        <p class="detail-infor-rank">{{ dakarenqi }}</p>
         <p class="detail-infor-flag">打卡人气</p>
       </van-grid-item>
       <van-grid-item>

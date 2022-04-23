@@ -1,5 +1,5 @@
 <template>
-  <van-popup v-model="show" round closeable safe-area-inset-bottom>
+  <van-popup v-model="show" round closeable safe-area-inset-bottom @close="closePopup">
     <div class="popup-login">
       <h3 class="popup-login-title">请登录后，再操作</h3>
       <van-button
@@ -59,5 +59,7 @@ export default {
 .popup-login-title {
   color: rgba(49, 71, 128, 1);
   font-size: 18px;
+  padding: 10px 0;
+  margin:0 0 20px 0;
 }
 </style>

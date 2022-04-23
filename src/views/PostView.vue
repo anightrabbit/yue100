@@ -5,7 +5,7 @@
         <div class="post-page-header">
           <van-image :src="pageData.touxiang" width="40" height="40" class="post-author-img" round fit="cover" />
           <div class="post-page-header-content">
-            <h3>{{ pageData.author }}</h3>
+            <h3>{{ pageData.zuozhe || '匿名' }}</h3>
             <p>{{ pageData.inputtime }}</p>
           </div>
         </div>

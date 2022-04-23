@@ -19,7 +19,7 @@
         <DetailNews :news="news" v-if="news.length" />
         <DetailMore :detail="pageData.content" v-if="pageData.content" />
         <DetailPost :post="post" v-if="post.length" />
-        <DetailFooter needShare :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" :pageData="pageData" v-on:daka-action="getPageData" />
+        <DetailFooter needShare :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" :isDaka="!!pageData.isdaka" v-on:daka-action="getPageData" />
       </template>
       <van-empty v-else image="error" description="网络异常">
         <van-button
