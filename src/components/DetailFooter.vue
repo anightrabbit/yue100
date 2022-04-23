@@ -100,7 +100,6 @@ export default {
     id: [String, Number],
     isDaka: Boolean,
     pageData: Object,
-    isDakaTime: String,
   },
   computed: {
     getColumnNum() {
@@ -251,14 +250,17 @@ export default {
       }
       if (this.isDaka) {
         // 设置必要数据(头像,图片,昵称...)
-        this.mineCard.img1 = window.sessionStorage.getItem('YUE100_HEADIMGURL') || '';
-        this.mineCard.username = window.sessionStorage.getItem('YUE100_USERNAME') || '';
+        this.mineCard.img1 =
+          window.sessionStorage.getItem("YUE100_HEADIMGURL") || "";
+        this.mineCard.username =
+          window.sessionStorage.getItem("YUE100_USERNAME") || "";
         this.mineCard.codeContent = this.pageData.qrcode;
         this.mineCard.name = this.pageData.title;
         this.mineCard.img2 = this.pageData.postcard;
-        const dktimes = this.isDakaTime.split("-");
-        this.mineCard.data = dktimes[0];
-        this.mineCard.subData = dktimes[1] + "/" + dktimes[2];
+        const dktimes = (this.pageData.dktime || '').split("-");
+        this.mineCard.data = dktimes[0] || "2022";
+        this.mineCard.subData =
+          (dktimes[1] || "02") + "/" + (dktimes[2] || "02");
         this.mineCard.tips = this.pageData.mxpsm;
         this.showCard = true; // 最后显示海报
         return true;

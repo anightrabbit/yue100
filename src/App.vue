@@ -16,8 +16,6 @@ export default {
     // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景2 阅读记详情 http://47.97.210.216/client/post/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景3 阅读点动态详情 http://47.97.210.216/client/news/10?api_auth_uid=1&api_auth_code=2
-    console.log(query?.api_auth_uid);
-    console.log(query?.api_auth_code);
     if(query?.api_auth_uid && query?.api_auth_code) {
       window.sessionStorage.setItem('YUE100_UID',query?.api_auth_uid)
       window.sessionStorage.setItem('YUE100_CODE', query?.api_auth_code)
