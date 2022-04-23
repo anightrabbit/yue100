@@ -35,12 +35,12 @@ export default {
       //   console.log(json.data);
       //   const { id, api_auth_code, headimgurl, mingyan, zuozhe, bgimage } =
       //     json?.data || {};
-      //   window.localStorage.setItem("YUE100_UID", id);
-      //   window.localStorage.setItem("YUE100_CODE", api_auth_code);
-      //   window.localStorage.setItem("YUE100_HEADIMG", headimgurl);
-      //   window.localStorage.setItem("YUE100_MINGYAN", mingyan);
-      //   window.localStorage.setItem("YUE100_ZUOZHE", zuozhe);
-      //   window.localStorage.setItem("YUE100_BGIMAGE", bgimage);
+      //   window.sessionStorage.setItem("YUE100_UID", id);
+      //   window.sessionStorage.setItem("YUE100_CODE", api_auth_code);
+      //   window.sessionStorage.setItem("YUE100_HEADIMG", headimgurl);
+      //   window.sessionStorage.setItem("YUE100_MINGYAN", mingyan);
+      //   window.sessionStorage.setItem("YUE100_ZUOZHE", zuozhe);
+      //   window.sessionStorage.setItem("YUE100_BGIMAGE", bgimage);
       //   this.closePopup();
       // } else {
       //   this.$toast.fail(json?.msg || "登录失败");

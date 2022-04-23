@@ -1,8 +1,8 @@
 import Vue from "vue";
 
 const getDetail = (id = 50) => {
-    const uid = window.localStorage.getItem('YUE100_UID');
-    const code = window.localStorage.getItem('YUE100_CODE');
+    const uid = window.sessionStorage.getItem('YUE100_UID');
+    const code = window.sessionStorage.getItem('YUE100_CODE');
     const query = {
         
         s: 'ydd',

@@ -18,16 +18,16 @@ export default {
     console.log(query?.api_auth_uid);
     console.log(query?.api_auth_code);
     if(query?.api_auth_uid) {
-      window.localStorage.setItem('YUE100_UID',query?.api_auth_uid)
+      window.sessionStorage.setItem('YUE100_UID',query?.api_auth_uid)
     }
     if(query?.api_auth_code) {
-      window.localStorage.setItem('YUE100_CODE', query?.api_auth_code)
+      window.sessionStorage.setItem('YUE100_CODE', query?.api_auth_code)
     }
     if(query?.username) {
-      window.localStorage.setItem('YUE100_USERNAME',query?.username)
+      window.sessionStorage.setItem('YUE100_USERNAME',query?.username)
     }
     if(query?.headimgurl) {
-      window.localStorage.setItem('YUE100_HEADIMGURL', query?.headimgurl)
+      window.sessionStorage.setItem('YUE100_HEADIMGURL', query?.headimgurl)
     }
   },
 }

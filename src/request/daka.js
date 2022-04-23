@@ -1,8 +1,8 @@
 import Vue from "vue";
 
 export const getDaka = () => {
-    const uid = window.localStorage.getItem('YUE100_UID');
-    const code = window.localStorage.getItem('YUE100_CODE');
+    const uid = window.sessionStorage.getItem('YUE100_UID');
+    const code = window.sessionStorage.getItem('YUE100_CODE');
     if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
@@ -28,8 +28,8 @@ export const refreshDaka = ({
     lng,
     lat
 }) => {
-    const uid = window.localStorage.getItem('YUE100_UID');
-    const code = window.localStorage.getItem('YUE100_CODE');
+    const uid = window.sessionStorage.getItem('YUE100_UID');
+    const code = window.sessionStorage.getItem('YUE100_CODE');
     if (!uid || !code) return '未登录';
     const query = {
         s: 'form',
