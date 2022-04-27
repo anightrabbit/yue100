@@ -11,6 +11,13 @@ export default {
   name: "PageBack",
   methods: {
     gotoBack() {
+      // 详情页返回固定地址
+      const { name, query, params } = this.$route;
+      if (name === "Detail") {
+        return window.location.replace('https://haoshengyi.link/client/index.html?yuedulist=1');
+      } else if(name === 'Line') {
+        return window.location.replace(`https://haoshengyi.link/client/index.html?route=${query.route}&id=${params.id}`)
+      }
       if (isInWeChatApp()) {
         const url = getBackUrl();
         url && window.location.replace(url);

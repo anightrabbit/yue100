@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PageBack />
+    <PageBack v-if="hasBack" />
     <router-view></router-view>
   </div>
 </template>
@@ -14,6 +14,11 @@ export default {
   name: "App",
   components: {
     PageBack,
+  },
+  computed: {
+    hasBack() {
+      return this.$route.name !== 'uploadImg';
+    }
   },
   created() {
     const query = getUrlQuery();

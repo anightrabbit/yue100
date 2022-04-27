@@ -1,55 +1,58 @@
 <template>
-  <div class="line_view">
-    <img class="bgc" src="../assets/ling-bgc.png" />
+  <div class="line_view" :style="{'background-image':`url(${pageData.thumb})`}">
     <div class="content">
       <div class="img_wrap">
-        <img
-          src="https://haoshengyi.link/uploadfile/202203/78f141123c39382.png"
-        />
+        <van-image class="img_wrap_img" :src="pageData.thumb" width="140" height="140" />
       </div>
       <div class="detail">
-        <h3>{{pageData.title}}</h3>
-        <span class="address">地址: {{pageData.address}}</span>
+        <h3>{{ pageData.title }}</h3>
+        <span class="address">地址: {{ pageData.address }}</span>
         <p>
-          {{pageData.description}}
+          {{ pageData.description }}
         </p>
       </div>
       <!-- <div v-if="pageData.shifoukedaka === '是'"  v-bind:class="{'clock_in' : !pageData.isdaka,'clock_out': pageData.isdaka}">
         <div @click="switchDaka">立即打卡</div>
       </div> -->
     </div>
-      <DetailFooter :isDaka="!!pageData.isdaka" :needDaka="pageData.shifoukedaka == '是'" :id="pageData.id" v-on:daka-action="getPageData" :pageData="pageData" />
+    <DetailFooter
+      :isDaka="!!pageData.isdaka"
+      :needDaka="pageData.shifoukedaka == '是'"
+      :id="pageData.id"
+      v-on:daka-action="getPageData"
+      :pageData="pageData"
+    />
   </div>
 </template>
 
 <script>
-import DetailFooter from '@/components/DetailFooter'
-import getDetail from '@/request/detail'
+import DetailFooter from "@/components/DetailFooter";
+import getDetail from "@/request/detail";
 
 export default {
-  name: 'LineView',
+  name: "LineView",
   components: {
-    DetailFooter
+    DetailFooter,
   },
 
   data() {
     return {
       mineCard: {
-        img1: 'https://haoshengyi.link/uploadfile/202203/78f141123c39382.png', // 头像地址
-        img2: 'https://haoshengyi.link/uploadfile/202203/78f141123c39382.png', // 大图地址
-        name: 'imageName', // 保存图片名称
-        username: '', // 账号名称
-        data: '2022', // 左上角上排
-        subData: '04/11', // 左上角下排
+        img1: "https://haoshengyi.link/uploadfile/202203/78f141123c39382.png", // 头像地址
+        img2: "https://haoshengyi.link/uploadfile/202203/78f141123c39382.png", // 大图地址
+        name: "imageName", // 保存图片名称
+        username: "", // 账号名称
+        data: "2022", // 左上角上排
+        subData: "04/11", // 左上角下排
         codeSize: 66, // 二维码大小
-        codeContent: '', // 二维码内容
+        codeContent: "", // 二维码内容
         tips: '"鸟欲高飞先振翅,人求上进先读书"', // 文字内容
-        author: ''
+        author: "",
       }, // 海报相关
       pageData: {},
-      pageId: '',
+      pageId: "",
       showCard: false,
-    }
+    };
   },
 
   created() {
@@ -58,33 +61,39 @@ export default {
     this.getPageData();
   },
 
-  
   methods: {
     async getPageData() {
-      if(!this.pageId) return false;
-      const json = await getDetail(this.pageId)
-      this.loading = false
+      if (!this.pageId) return false;
+      const json = await getDetail(this.pageId);
+      this.loading = false;
       if (json.code === 1) {
-        this.pageData = json.data
+        this.pageData = json.data;
         console.log(this.pageData);
       } else {
-        this.$toast.fail(json.msg || '网络异常')
+        this.$toast.fail(json.msg || "网络异常");
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-.bgc {
-  position: fixed;
+.line_view {
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100%;
+  position: relative;
+}
+.line_view::after {
+  position: absolute;
   left: 0;
-  right: 0;
-  bottom: 0;
   top: 0;
-  z-index: -1;
+  z-index: 1;
+  content: '';
   width: 100%;
   height: 100%;
+  background-color: rgb(0,0,0,.6);
+  box-shadow:0 0 30px 30px rgba(100, 100, 100, 1) inset;
 }
 
 .content {
@@ -96,6 +105,7 @@ export default {
   border-radius: 20px 20px 0 0;
   padding: 0 15px;
   box-sizing: border-box;
+  z-index: 2;
 }
 
 .content .detail {
@@ -134,10 +144,9 @@ export default {
   border-radius: 10px;
 }
 
-.img_wrap img {
-  width: 100%;
-  height: 100%;
+.img_wrap_img {
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .clock_in {
