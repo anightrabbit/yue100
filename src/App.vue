@@ -20,9 +20,10 @@ export default {
       return this.$route.name !== 'uploadImg';
     },
     isRight() {
-      const name = this.$route.name;
-      const names = ['News', 'Post', "PostList"];
-      return names.includes(name);
+      return true;
+      // const name = this.$route.name;
+      // const names = ['News', 'Post', "PostList"];
+      // return names.includes(name);
     }
   },
   created() {

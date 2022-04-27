@@ -22,14 +22,14 @@
         <p>保存图片后用微信扫码关注</p>
         <van-image width="144" height="144" :src="url" />
       </div>
-      <van-button
+      <!-- <van-button
         round
         plain
         type="primary"
         color="rgba(255, 255, 255, 1)"
         style="background: transparent; margin: 0 auto; display: block"
         >保存至相册</van-button
-      >
+      > -->
     </van-popup>
   </div>
 </template>
