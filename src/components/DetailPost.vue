@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { setBackUrl, isInWeChatApp } from "@/utils";
+
 export default {
   name: "DetailPost",
   props: {
@@ -37,11 +39,23 @@ export default {
   },
   methods: {
     gotoDetail(id) {
+      if (isInWeChatApp()) {
+        setBackUrl();
+        return this.$router.replace({
+          path: `/post/${id}`,
+        });
+      }
       return this.$router.push({
         path: `/post/${id}`,
       });
     },
     gotoList() {
+      if (isInWeChatApp()) {
+        setBackUrl();
+        return this.$router.replace({
+          path: "/post",
+        });
+      }
       return this.$router.push({
         path: "/post",
       });

@@ -1,24 +1,29 @@
 <template>
   <div id="app">
+    <PageBack />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { getUrlQuery } from "@/utils"
+import { getUrlQuery } from "@/utils";
 import { getUserInfo } from "@/request/login";
+import PageBack from "@/components/PageBack";
 
 export default {
   name: "App",
+  components: {
+    PageBack,
+  },
   created() {
     const query = getUrlQuery();
     // 接入参数 api_auth_uid，api_auth_code,username,headimgurl,
     // 可能的场景1 阅读点详情 http://47.97.210.216/client/detail/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景2 阅读记详情 http://47.97.210.216/client/post/10?api_auth_uid=1&api_auth_code=2
     // 可能的场景3 阅读点动态详情 http://47.97.210.216/client/news/10?api_auth_uid=1&api_auth_code=2
-    if(query?.api_auth_uid && query?.api_auth_code) {
-      window.sessionStorage.setItem('YUE100_UID',query?.api_auth_uid)
-      window.sessionStorage.setItem('YUE100_CODE', query?.api_auth_code)
+    if (query?.api_auth_uid && query?.api_auth_code) {
+      window.sessionStorage.setItem("YUE100_UID", query?.api_auth_uid);
+      window.sessionStorage.setItem("YUE100_CODE", query?.api_auth_code);
       this.getUserData();
     }
   },
@@ -26,11 +31,11 @@ export default {
     async getUserData() {
       const json = await getUserInfo();
       const { headimgurl, username } = json?.msg || {};
-      window.sessionStorage.setItem('YUE100_USERNAME',username)
-      window.sessionStorage.setItem('YUE100_HEADIMGURL', headimgurl)
+      window.sessionStorage.setItem("YUE100_USERNAME", username);
+      window.sessionStorage.setItem("YUE100_HEADIMGURL", headimgurl);
     }
   },
-}
+};
 </script>
 
 <style>

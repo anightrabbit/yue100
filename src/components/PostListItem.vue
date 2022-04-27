@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { setBackUrl, isInWeChatApp } from "@/utils";
+
 export default {
   name: "PostListItem",
   props: {
@@ -34,6 +36,12 @@ export default {
   },
   methods: {
     gotoDetail(id) {
+      if (isInWeChatApp()) {
+        setBackUrl();
+        return this.$router.replace({
+          path: `/post/${id}`,
+        });
+      }
       return this.$router.push({
         path: `/post/${id}`,
       });

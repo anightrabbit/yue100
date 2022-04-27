@@ -18,31 +18,39 @@
 </template>
 
 <script>
+import { setBackUrl, isInWeChatApp } from "@/utils";
+
 export default {
-  name: 'DetailNews',
+  name: "DetailNews",
   props: {
-    news: Array
+    news: Array,
   },
   data() {
     return {
-      showAll: false
-    }
+      showAll: false,
+    };
   },
   methods: {
     toggleNews() {
-      this.showAll = !this.showAll
-      const dom = document.getElementById('detail-news-list')
+      this.showAll = !this.showAll;
+      const dom = document.getElementById("detail-news-list");
       !this.showAll
-        ? dom.classList.add('news-hide')
-        : dom.classList.remove('news-hide')
+        ? dom.classList.add("news-hide")
+        : dom.classList.remove("news-hide");
     },
     gotoDetail(id) {
+      if (isInWeChatApp()) {
+        setBackUrl();
+        return this.$router.replace({
+          path: `/news/${id}`,
+        });
+      }
       return this.$router.push({
-        path: `/news/${id}`
-      })
-    }
-  }
-}
+        path: `/news/${id}`,
+      });
+    },
+  },
+};
 </script>
 
 <style>
@@ -69,7 +77,6 @@ export default {
   align-items: center;
   margin-bottom: 6px;
   border-radius: 3px;
-
 }
 .detail-news-list li a {
   color: rgba(102, 102, 102, 1);
