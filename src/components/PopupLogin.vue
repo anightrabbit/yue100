@@ -28,8 +28,7 @@ export default {
       this.$emit("toggle-popup");
     },
     async onLogin() {
-      return (location.href =
-        "https://haoshengyi.link/index.php?s=weixin&c=go");
+      return window.location.replace("https://haoshengyi.link/index.php?s=weixin&c=go");
       // const json = await login();
       // if (json?.code === 1) {
       //   console.log(json.data);
