@@ -13,7 +13,12 @@ export const isInWeChatApp = () => {
   return false;
 };
 
-export const wxConfig = ({ appId, timestamp, nonceStr, signature }) => {
+export const wxConfig = ({
+  appId,
+  timestamp,
+  nonceStr,
+  signature
+}) => {
   wx.config({
     debug: false,
     appId,
@@ -105,7 +110,10 @@ export const chooseImage = () => {
               wx.getLocalImgData({
                 localId: localId,
                 success: function (getLocalImgDataRes) {
-                  const { localData, ...rest } = getLocalImgDataRes;
+                  const {
+                    localData,
+                    ...rest
+                  } = getLocalImgDataRes;
                   console.log(rest);
                   resolve(localData);
                 },
@@ -122,11 +130,34 @@ export const chooseImage = () => {
           });
       },
       fail: function (err) {
-        reject({ catchType: "fail", catchRes: err });
+        reject({
+          catchType: "fail",
+          catchRes: err
+        });
       },
       cancel: function (res) {
-        reject({ catchType: "cancel", catchRes: res });
+        reject({
+          catchType: "cancel",
+          catchRes: res
+        });
       },
     });
   });
 };
+
+export const setBackUrl = (url = window.location.href) => {
+  const urls = window.sessionStorage.getItem('YUE100_ROUTE');
+  const urls_array = JSON.parse(urls) || [];
+  console.log('url_array', urls_array)
+  if (urls_array[urls_array.length - 1] === url) return;
+  urls_array.push(url);
+  window.sessionStorage.setItem('YUE100_ROUTE', JSON.stringify(urls_array));
+}
+
+export const getBackUrl = () => {
+  const urls = window.sessionStorage.getItem('YUE100_ROUTE');
+  const urls_array = JSON.parse(urls) || [];
+  const back_url = urls_array.pop();
+  window.sessionStorage.setItem('YUE100_ROUTE', JSON.stringify(urls_array));
+  return back_url;
+}

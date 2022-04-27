@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { setBackUrl, isInWeChatApp } from "@/utils";
+
 export default {
   name: 'DetailNews',
   props: {
@@ -37,6 +39,12 @@ export default {
         : dom.classList.remove('news-hide')
     },
     gotoDetail(id) {
+      if (isInWeChatApp()) {
+        setBackUrl();
+        return this.$router.replace({
+          path: `/news/${id}`,
+        });
+      }
       return this.$router.push({
         path: `/news/${id}`
       })
