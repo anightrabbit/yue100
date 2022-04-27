@@ -1,5 +1,5 @@
 <template>
-  <div class="page-back-button" @click="gotoBack">
+  <div class="page-back-button" :class="{'page-back-button-right' : isRight }" @click="gotoBack">
     <van-icon name="revoke" size="18" color="#FFF" />
   </div>
 </template>
@@ -9,6 +9,9 @@ import { isInWeChatApp, getBackUrl } from "@/utils";
 
 export default {
   name: "PageBack",
+  props: {
+    isRight: Boolean,
+  },
   methods: {
     gotoBack() {
       // 详情页返回固定地址
@@ -44,5 +47,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.page-back-button-right {
+  left: auto;
+  right: 20px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <PageBack v-if="hasBack" />
+    <PageBack v-if="hasBack" :isRight="isRight" />
     <router-view></router-view>
   </div>
 </template>
@@ -18,6 +18,11 @@ export default {
   computed: {
     hasBack() {
       return this.$route.name !== 'uploadImg';
+    },
+    isRight() {
+      const name = this.$route.name;
+      const names = ['News', 'Post', "PostList"];
+      return names.includes(name);
     }
   },
   created() {
