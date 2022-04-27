@@ -45,8 +45,11 @@ import {VueCropper} from "vue-cropper";
 import { EditImage } from '@/request/post';
 import { getUrlQuery } from "@/utils"
 
-// 提交成功后的跳转等待时间
-const SUBMIT_SUCCESS_AWAIT_TIME=5000
+// 关闭该浏览器标签页
+const replaceToHome=()=>{
+  const query=getUrlQuery()
+  window.location.replace(`${process.env.VUE_APP_HOME_PATH}?id=${query.api_auth_uid}&api_auth_code=${query.api_auth_code}`)
+}
 
 export default {
   name: "UploadImg",
@@ -62,14 +65,12 @@ export default {
         { name: '提交',callback:()=>{
           that.$refs.cropper.getCropData(data => {
             // duration：0，保持展示，提交成功后手动clear
-            that.$toast.loading({message:"提交中。。。",forbidClick:true, duration:0});
+            that.$toast.loading({message:"提交中...",forbidClick:true, duration:0});
             EditImage(data).then((res)=>{
               const {code}=res
               if(code===1){
-                setTimeout(()=>{
-                  that.$toast.clear()
-                  window.history.back()
-                }, SUBMIT_SUCCESS_AWAIT_TIME);
+                that.$toast.clear()
+                replaceToHome()
               }else{
                 // 失败提示，并触发微信图片选择
                 that.showAction=false;
@@ -119,8 +120,7 @@ export default {
       })
     },
     handleActionCancel(){
-      //TODO 这里跳转到上一页
-      window.history.back()
+      replaceToHome()
     }
   },
 };

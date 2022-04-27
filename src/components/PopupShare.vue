@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <van-popup
     v-model="show"
     round
@@ -41,9 +41,9 @@ export default {
       this.$emit('toggle-popup', 'click')
       updateAppMessageShareData(
         '悦读100',
-        '悦读1000',
+        '打卡身边的阅读点，阅读悦开心',
         location.href.split('#')[0],
-        'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png'
+        'https://haoshengyi.link/logo.png'
       )
     },
     updateTimelineShareDataFn() {
@@ -51,7 +51,7 @@ export default {
       updateTimelineShareData(
         '悦读100',
         location.href.split('#')[0],
-        'https://haoshengyi.link/uploadfile/202203/e7e7fb009014db8.png'
+        'https://haoshengyi.link/logo.png'
       )
     }
   }
